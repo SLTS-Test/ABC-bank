@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-xl-4">
             <h4 class="mt-2">Update Customer Details</h4>
-            <form:form method="post" commandName="home">
+            <form:form method="post">
                 <div class="mb-3">
                     <label for="txt-nic" class="form-label">Customer NIC <b class="text-danger">*</b></label>
                     <input value="${customerDetails.nic}" required disabled pattern="^\d{9}V$|^\d{11}V$" name="nic" type="text" class="form-control" id="txt-nic"

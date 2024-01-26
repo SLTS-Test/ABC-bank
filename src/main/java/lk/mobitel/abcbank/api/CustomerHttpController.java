@@ -24,6 +24,12 @@ public class CustomerHttpController {
         return "home";
     }
 
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String loginPage(){
+        System.out.println("Incoming request");
+        return "login-page";
+    }
+
     @RequestMapping(value = "/customers",method = RequestMethod.GET)
     public String getAllCustomers(ModelMap model){
         List<CustomerDTO> allCustomers = customerService.getAllCustomers();
@@ -73,11 +79,11 @@ public class CustomerHttpController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "delete/{customerNic}",method = RequestMethod.GET)
-    public String deleteCustomer(ModelMap model,@PathVariable String customerNic){
+    public String deleteCustomer(@PathVariable String customerNic){
         customerService.deleteCustomer(customerNic);
         List<CustomerDTO> allCustomers = customerService.getAllCustomers();
-        model.put("customerList",allCustomers);
-        return "redirect:/delete";
+//        model.put("customerList",allCustomers);
+        return "delete-customer";
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
