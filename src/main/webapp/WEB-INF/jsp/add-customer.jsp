@@ -15,12 +15,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <jsp:include page="common/header.jsp" />
 <header class="p-2 text-center border-bottom">
-    <h1 class="mb-0">Add Customer</h1>
+    <h1 class="text-center mb-3"><i class="bi bi-person-plus-fill fs-1"></i>Add Customer</h1>
 </header>
 <main class="container-fluid">
     <div class="row">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="txt-mobile" class="form-label">Customer Mobile No. <b class="text-danger">*</b></label>
-                    <input required minlength="2" name="mobileNo" type="text" class="form-control" id="txt-mobile"
+                    <input required pattern="^0\d{9}$" name="mobileNo" type="text" class="form-control" id="txt-mobile"
                            placeholder="0711234567">
                 </div>
 

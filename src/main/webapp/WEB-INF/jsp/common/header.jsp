@@ -6,10 +6,6 @@
         </h1>
     </div>
     <div id="mode-container" class="d-flex gap-2">
-        <label class="form-check-label" for="flexSwitchCheckChecked">Dark</label>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-            <label class="form-check-label" for="flexSwitchCheckChecked">Light</label>
-        </div>
+        <a class="btn btn-primary" href="/logout">Log Out</a>
     </div>
 </header>

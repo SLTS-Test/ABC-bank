@@ -18,17 +18,17 @@ public class CustomerHttpController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
     public String welcomePage(){
 
         return "home";
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String loginPage(){
-        System.out.println("Incoming request");
-        return "login-page";
-    }
+//    @RequestMapping(value = "/login",method = RequestMethod.POST)
+//    public String loginPage(){
+////        System.out.println("Incoming request");
+//        return "home";
+//    }
 
     @RequestMapping(value = "/customers",method = RequestMethod.GET)
     public String getAllCustomers(ModelMap model){
@@ -67,30 +67,35 @@ public class CustomerHttpController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/add",method = RequestMethod.POST,consumes = "application/x-www-form-urlencoded")
-    public String registerCustomer(@Validated CustomerDTO customerDTO, BindingResult result) throws InterruptedException {
+    public String registerCustomer(@Validated CustomerDTO customerDTO, ModelMap model) throws InterruptedException {
 //        if (result.hasErrors()){
 //            return "add-customer";
 //        }
 
         customerService.saveCustomer(customerDTO);
-        return "home";
-    }
 
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "delete/{customerNic}",method = RequestMethod.GET)
-    public String deleteCustomer(@PathVariable String customerNic){
-        customerService.deleteCustomer(customerNic);
         List<CustomerDTO> allCustomers = customerService.getAllCustomers();
-//        model.put("customerList",allCustomers);
-        return "delete-customer";
+        model.put("customerList",allCustomers);
+        return "add-customer";
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "update/{customerNic}",consumes = "application/x-www-form-urlencoded",method = RequestMethod.POST)
-    public String updateCustomer(ModelMap model,@PathVariable String customerNic,@Validated CustomerDTO customerDTO){
+
+
+    @RequestMapping(value = "/delete/{customerNic}",method = RequestMethod.GET)
+    public String deleteCustomer(@PathVariable String customerNic,ModelMap model){
+        customerService.deleteCustomer(customerNic);
+
+        List<CustomerDTO> allCustomers = customerService.getAllCustomers();
+        model.put("customerList",allCustomers);
+        return "redirect:/delete";
+    }
+
+
+    @RequestMapping(value = "/update/{customerNic}",consumes = "application/x-www-form-urlencoded",method = RequestMethod.POST)
+    public String updateCustomer(@PathVariable String customerNic,@Validated CustomerDTO customerDTO,ModelMap model){
         customerDTO.setNic(customerNic);
         customerService.updateCustomer(customerDTO);
+
         List<CustomerDTO> allCustomers = customerService.getAllCustomers();
         model.put("customerList",allCustomers);
         return "redirect:/update";
